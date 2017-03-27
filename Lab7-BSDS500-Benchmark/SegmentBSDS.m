@@ -20,7 +20,7 @@ for i=1:length(DirTrain)
     end
     save(sprintf('trainSegsKmeans/%s.mat',DirTrain(i).name(1:end-4)),'SegsKmeans');
     save(sprintf('trainSegsWatershed/%s.mat',DirTrain(i).name(1:end-4)),'SegsWatershed');
-    fprintf('ImagenTrain %i de %i',i,length(DirTrain));
+    fprintf('ImagenTrain %i de %i\n',i,length(DirTrain));
 end
 for i=1:length(DirVal)
     im=imread(fullfile(Path,'val',DirVal(i).name));
@@ -34,5 +34,5 @@ for i=1:length(DirVal)
     end
     save(sprintf('valSegsKmeans/%s.mat',DirVal(i).name(1:end-4)),'SegsKmeans');
     save(sprintf('valSegsWatershed/%s.mat',DirVal(i).name(1:end-4)),'SegsWatershed');
-    fprintf('ImagenVal %i de %i',i,length(DirVal));
+    fprintf('ImagenVal %i de %i\n',i,length(DirVal));
 end
