@@ -36,3 +36,4 @@ for i=1:length(DirVal)
     save(sprintf('valSegsWatershed/%s.mat',DirVal(i).name(1:end-4)),'SegsWatershed');
     fprintf('ImagenVal %i de %i\n',i,length(DirVal));
 end
+disp('DONE!')
