@@ -1,4 +1,4 @@
-function phow_imageNet()
+function phow_imageNet(conf,tam1)
 % PHOW_IMAGENET Image classification in the Caltech-101 dataset
 %   This program demonstrates how to use VLFeat to construct an image
 %   classifier on the Caltech-101 data. The classifier uses PHOW
@@ -55,32 +55,8 @@ run(fullfile('vlfeat-0.9.20','toolbox','vl_setup'));
 
 % dbstop if error
 
-conf.calDir = 'imageNet200/' ;
-conf.dataDir = 'imageNet200/results' ;
-% conf.calDir = 'data/caltech-101' ;
-% conf.dataDir = 'data/' ;
-
-conf.autoDownloadData = false ;
-conf.numTrain = 15 ;
-conf.numTest = 15 ;
-% conf.numClasses = 102 ;
-conf.numClasses = 200 ;
-conf.numWords = 600 ;
-conf.numSpatialX = [2 4] ;
-conf.numSpatialY = [2 4] ;
-conf.quantizer = 'kdtree' ;
-conf.svm.C = 10 ;
-
-conf.svm.solver = 'sdca' ;
-%conf.svm.solver = 'sgd' ;
-%conf.svm.solver = 'liblinear' ;
-
-conf.svm.biasMultiplier = 1 ;
-conf.phowOpts = {'Step', 3} ;
-conf.clobber = false ;
-conf.tinyProblem = false ;
-conf.prefix = 'baseline' ;
-conf.randSeed = 1 ;
+global tam
+tam=tam1;
 
 if conf.tinyProblem
     conf.prefix = 'tiny' ;
@@ -99,10 +75,6 @@ conf.resultPath = fullfile(conf.dataDir, [conf.prefix '-result']) ;
 randn('state',conf.randSeed) ;
 rand('state',conf.randSeed) ;
 vl_twister('state',conf.randSeed) ;
-
-if ~exist(fullfile(conf.calDir, 'airplanes'),'dir')
-  conf.calDir = fullfile(conf.calDir, '101_ObjectCategories') ;
-end
 
 % --------------------------------------------------------------------
 %                                                           Setup data
@@ -260,9 +232,9 @@ save([conf.resultPath '.mat'], 'confus', 'conf') ;
 % -------------------------------------------------------------------------
 function im = standarizeImage(im)
 % -------------------------------------------------------------------------
-
+global tam
 im = im2single(im) ;
-if size(im,1) > 480, im = imresize(im, [480 NaN]) ; end
+if size(im,1) > tam, im = imresize(im, [tam NaN]) ; end
 
 % -------------------------------------------------------------------------
 function hist = getImageDescriptor(model, im)
